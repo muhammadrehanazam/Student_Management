@@ -70,6 +70,10 @@ public class StudentController {
                 })
                 .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
     }
+    @GetMapping("/search")
+    public List<Student> searchStudentsByCourse(@RequestParam String course) {
+        return studentRepository.findByCourse(course);
+    }
 
 
 }
