@@ -2,9 +2,11 @@ package com.example.student_management.controller;
 import com.example.student_management.repository.StudentRepository;
 import com.example.student_management.model.Student;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 
 import java.util.List;
 @RestController
@@ -22,8 +24,12 @@ public class StudentController {
 
     // post students
     @PostMapping
-    public Student createStudent(@RequestBody Student student){
-        return studentRepository.save(student);
+    public ResponseEntity<?> createStudent( @Valid @RequestBody Student student){
+        if(studentRepository.existsByEmail(student.getEmail())){
+            return ResponseEntity.status(409).body("Error! This email already registered");
+        }
+        Student savedStudent = studentRepository.save(student);
+        return ResponseEntity.ok(savedStudent);
     }
  // update student
     @PutMapping("/{id}")

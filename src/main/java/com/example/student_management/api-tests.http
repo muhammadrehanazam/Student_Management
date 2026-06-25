@@ -6,7 +6,7 @@ POST http://localhost:8080/api/students
 Content-Type: application/json
 
 {
-     "name":"Muhammad Rehan",
+     "name":"rehan",
     "email":"rehan@gmail.com",
     "course":"Math"
 }
